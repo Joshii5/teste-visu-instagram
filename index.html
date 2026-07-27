@@ -1,0 +1,84 @@
+```html
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Instagram Stories</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #e5e5e5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        .phone {
+            width: 100%;
+            max-width: 400px;
+            background: #eeeeee;
+            border-radius: 32px;
+            padding: 20px 0 10px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+            margin: 10px;
+        }
+
+        .story-scroll {
+            display: flex;
+            gap: 16px;
+            overflow-x: auto;
+            padding: 10px 16px 16px;
+            scrollbar-width: none;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .story-scroll::-webkit-scrollbar {
+            display: none;
+        }
+
+        .story-item {
+            flex: 0 0 auto;
+            width: 76px;
+            height: 76px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 3px solid #e4405f;
+            background: #fff;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+        }
+
+        .story-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div class="phone">
+        <div class="story-scroll">
+            <div class="story-item"><img src="imagens/1.png" alt=""></div>
+            <div class="story-item"><img src="imagens/2.png" alt=""></div>
+            <div class="story-item"><img src="imagens/3.png" alt=""></div>
+            <div class="story-item"><img src="imagens/4.png" alt=""></div>
+            <div class="story-item"><img src="imagens/5.png" alt=""></div>
+            <div class="story-item"><img src="imagens/6.png" alt=""></div>
+            <div class="story-item"><img src="imagens/7.png" alt=""></div>
+            <div class="story-item"><img src="imagens/8.png" alt=""></div>
+            <div class="story-item"><img src="imagens/9.png" alt=""></div>
+            <div class="story-item"><img src="imagens/10.png" alt=""></div>
+            <div class="story-item"><img src="imagens/11.png" alt=""></div>
+        </div>
+    </div>
+</body>
+</html>
+```

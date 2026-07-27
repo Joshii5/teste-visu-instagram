@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Instagram Stories</title>
+    <title>Instagram Carrossel</title>
     <style>
         * {
             margin: 0;
@@ -22,18 +22,28 @@
 
         .phone {
             width: 100%;
-            max-width: 400px;
-            background: #eeeeee;
+            max-width: 100%;
+            background: #ffffff;
             box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+            user-select: none;
+            -webkit-user-select: none;
         }
 
-        .sscroll {
+        .scroll {
             display: flex;
-            gap: 16px;
+            gap: 4px;
             overflow-x: auto;
-            padding: 10px 16px 16px;
+            overflow-y: hidden;
+            padding: 10px 0;
             scrollbar-width: none;
             -webkit-overflow-scrolling: touch;
+            scroll-snap-type: x mandatory;
+            cursor: grab;
+        }
+
+        .scroll:active {
+            cursor: grabbing;
         }
 
         .scroll::-webkit-scrollbar {
@@ -42,13 +52,12 @@
 
         .imagem {
             flex: 0 0 auto;
-            width: 1080px;
-            height: 1350px;
-            border-radius: 50%;
+            width: 100%;
+            max-width: 400px;
+            aspect-ratio: 4 / 5;
             overflow: hidden;
-            border: 3px solid #e4405f;
             background: #fff;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+            scroll-snap-align: start;
         }
 
         .imagem img {
@@ -56,12 +65,13 @@
             height: 100%;
             object-fit: cover;
             display: block;
+            pointer-events: none;
         }
     </style>
 </head>
 <body>
     <div class="phone">
-        <div class=scroll">
+        <div class="scroll" id="carrossel">
             <div class="imagem"><img src="imagens/1.png" alt=""></div>
             <div class="imagem"><img src="imagens/2.png" alt=""></div>
             <div class="imagem"><img src="imagens/3.png" alt=""></div>
@@ -75,6 +85,44 @@
             <div class="imagem"><img src="imagens/11.png" alt=""></div>
         </div>
     </div>
+
+    <script>
+        (function() {
+            const scroll = document.getElementById('carrossel');
+            let isDown = false;
+            let startX = 0;
+            let scrollLeft = 0;
+
+            function onStart(e) {
+                isDown = true;
+                const pageX = e.type === 'mousedown' ? e.pageX : e.touches[0].pageX;
+                startX = pageX - scroll.offsetLeft;
+                scrollLeft = scroll.scrollLeft;
+                scroll.style.scrollSnapType = 'none';
+            }
+
+            function onMove(e) {
+                if (!isDown) return;
+                e.preventDefault();
+                const pageX = e.type === 'mousemove' ? e.pageX : e.touches[0].pageX;
+                const x = pageX - scroll.offsetLeft;
+                const walk = (x - startX) * 1.5;
+                scroll.scrollLeft = scrollLeft - walk;
+            }
+
+            function onEnd() {
+                isDown = false;
+                scroll.style.scrollSnapType = 'x mandatory';
+            }
+
+            scroll.addEventListener('mousedown', onStart);
+            window.addEventListener('mousemove', onMove);
+            window.addEventListener('mouseup', onEnd);
+
+            scroll.addEventListener('touchstart', onStart, { passive: true });
+            window.addEventListener('touchmove', onMove, { passive: false });
+            window.addEventListener('touchend', onEnd, { passive: true });
+        })();
+    </script>
 </body>
 </html>
-```
